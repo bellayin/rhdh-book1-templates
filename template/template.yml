@@ -48,7 +48,7 @@ spec:
           name: ${{ parameters.name }}
     - id: publishSource
       name: Publishing to the source code repository
-      action: publish:github
+      action: publish:gitlab
       input:
         sourcePath: ./source
         description: Source code repository for component ${{ parameters.name }}
