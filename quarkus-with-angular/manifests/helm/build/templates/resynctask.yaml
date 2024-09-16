@@ -18,6 +18,6 @@ spec:
       command:
         - /bin/bash
         - '-c'
-      image: 'quay.io/openshift/origin-cli:latest'
+      image: 'image: 'bitnami/kubectl:latest'
       name: resync
       resources: {}
