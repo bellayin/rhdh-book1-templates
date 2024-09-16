@@ -1,19 +1,32 @@
 ---
-kind: Route
-apiVersion: route.openshift.io/v1
+kind: Ingress
+apiVersion: networking.k8s.io/v1
 metadata:
   name: webhook-{{ .Values.app.name }}-el
   labels:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
     eventlistener: {{ .Values.app.name }}-el
+  annotations:
+    {{- if .Values.tls }}
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    {{- end }}
 spec:
-  to:
-    kind: Service
-    name: el-{{ .Values.app.name }}-el
-    weight: 100
-  port:
-    targetPort: http-listener
+  rules:
+    - host: {{ .Values.app.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: el-{{ .Values.app.name }}-el
+                port:
+                  number: {{ .Values.service.port }}
+  {{- if .Values.tls }}
   tls:
-    insecureEdgeTerminationPolicy: Redirect
-    termination: edge
+    - hosts:
+        - {{ .Values.app.host }}
+      secretName: {{ .Values.tlsSecretName | default "tls-secret" }}
+  {{- end }}
