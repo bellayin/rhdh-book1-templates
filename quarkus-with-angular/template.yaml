@@ -23,9 +23,9 @@ spec:
           title: Repo Owner
           type: string
           description: GitLab Organization
-          default: development
+          default: bellayin
           enum:
-            - development
+            - bellayin
         description:
           title: Description
           type: string
