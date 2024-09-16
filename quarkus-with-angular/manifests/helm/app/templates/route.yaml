@@ -9,17 +9,21 @@ spec:
   {{- if .host }}
   rules:
     - host: {{ .host }}
-      {{- if .path }}
       http:
         paths:
-          - path: {{ .path }}
+          - path: {{ .path | default "/" }}
             pathType: Prefix
             backend:
               service:
                 name: {{ $.Values.app.componentId }}
                 port:
                   number: {{ $.Values.service.port }}
-      {{- end }}
+  {{- else }}
+  defaultBackend:
+    service:
+      name: {{ $.Values.app.componentId }}
+      port:
+        number: {{ $.Values.service.port }}
   {{- end }}
 
   {{- if .tls }}
