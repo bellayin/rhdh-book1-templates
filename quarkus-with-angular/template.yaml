@@ -67,8 +67,8 @@ spec:
         image_host:
           title: Image Host
           type: string
-          description: Host for storing image (defaults to openshift internal)
-          default: image-registry.openshift-image-registry.svc:5000
+          description: Host for storing image (defaults to Kubernetes internal)
+          default: image-registry.kube-system.svc:5000
         image_tag:
           title: Image Tag
           default: latest
