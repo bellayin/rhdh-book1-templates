@@ -149,8 +149,8 @@ spec:
       action: argocd:create-resources
       input:
         appName: ${{parameters.namespace}}-${{parameters.application_id}}-bootstrap
-        argoInstance: main
-        namespace: janus-argocd
+        argoInstance: argocd-server
+        namespace: argocd
         repoUrl: https://gitlab.com/${{parameters.gitlabGroup}}/${{parameters.namespace}}-${{parameters.application_id}}-gitops.git
         path: 'argocd/'
   output:
